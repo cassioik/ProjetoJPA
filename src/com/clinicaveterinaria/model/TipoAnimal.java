@@ -1,7 +1,5 @@
 package com.clinicaveterinaria.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,20 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ANIMAL")
-public class Animal {
+@Table(name = "TIPOANIMAL")
+public class TipoAnimal {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="animal_id", updatable=false)
+	@Column(name="tipoanimal_id", updatable=false)
 	private Integer id;
-	@Column(name="tipo_id", nullable=false)
-	private Integer tipoAnimalId;
-	@Column(name="pessoa_id", nullable=false)
-	private Integer donoId;
-	@Column(length=50, nullable=false)
-	private String nome;
-	@Column(nullable=true)
-	private Date nascimento;
+	@Column(name="nomeraca", nullable=false, length=50)
+	private String nomeRaca;
+	@Column(nullable=true, length=200)
+	private String descricao;
 	
 	public Integer getId() {
 		return id;
@@ -31,29 +25,17 @@ public class Animal {
 	public void setId(Integer pId) {
 		id = pId;
 	}
-	public Integer getTipoAnimalId() {
-		return tipoAnimalId;
+	public String getNomeRaca() {
+		return nomeRaca;
 	}
-	public void setTipoAnimalId(Integer pTipoAnimalId) {
-		tipoAnimalId = pTipoAnimalId;
+	public void setNomeRaca(String pNomeRaca) {
+		nomeRaca = pNomeRaca;
 	}
-	public Integer getDonoId() {
-		return donoId;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setDonoId(Integer pDonoId) {
-		donoId = pDonoId;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String pNome) {
-		nome = pNome;
-	}
-	public Date getNascimento() {
-		return nascimento;
-	}
-	public void setNascimento(Date pNascimento) {
-		nascimento = pNascimento;
+	public void setDescricao(String pDescricao) {
+		descricao = pDescricao;
 	}
 	
 	@Override
@@ -71,7 +53,7 @@ public class Animal {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Animal other = (Animal) obj;
+		TipoAnimal other = (TipoAnimal) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
