@@ -1,13 +1,16 @@
 package com.clinicaveterinaria.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PESSOA")
@@ -22,6 +25,12 @@ public class Pessoa {
 	private String nome;
 	@Column(nullable=true)
 	private Date nascimento;
+	
+	@Transient
+	private Integer idade;
+	
+	@OneToMany(mappedBy="dono")
+	private List<Animal> animais;
 	
 	public Integer getId() {
 		return id;
@@ -45,9 +54,21 @@ public class Pessoa {
 		return nascimento;
 	}
 	public void setNascimento(Date nascimento) {
+		if (nascimento == null)
+			idade = null;
+		else
+			idade = 0; //implementar
 		this.nascimento = nascimento;
 	}
-	
+	public Integer getIdade() {
+		return idade;
+	}
+	public List<Animal> getAnimais() {
+		return animais;
+	}
+	public void setAnimais(List<Animal> animais) {
+		this.animais = animais;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

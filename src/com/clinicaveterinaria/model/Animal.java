@@ -1,12 +1,19 @@
 package com.clinicaveterinaria.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,44 +23,71 @@ public class Animal {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="animal_id", updatable=false)
 	private Integer id;
-	@Column(name="tipo_id", nullable=false)
-	private Integer tipoAnimalId;
-	@Column(name="pessoa_id", nullable=false)
-	private Integer donoId;
 	@Column(length=50, nullable=false)
 	private String nome;
 	@Column(nullable=true)
 	private Date nascimento;
 	
+	@ManyToOne
+	@JoinColumn(name="tipoanimal_id", nullable=false)
+	private TipoAnimal tipo;
+	
+	@ManyToOne
+	@JoinColumn(name="pessoa_id", nullable=false)
+	private Pessoa dono;
+	
+	@OneToMany(mappedBy="id.idAnimal", fetch=FetchType.EAGER)
+	private Set<VacinaAnimal> vacinasAnimal;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable (
+		name="alergiaanimal", 
+		joinColumns={@JoinColumn(name="animal_id", referencedColumnName="animal_id")},
+		inverseJoinColumns={@JoinColumn(name="alergia_id", referencedColumnName="alergia_id")}
+	)
+	private Set<Alergia> alergia;
+	
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer pId) {
-		id = pId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public Integer getTipoAnimalId() {
-		return tipoAnimalId;
+	public TipoAnimal getTipo() {
+		return tipo;
 	}
-	public void setTipoAnimalId(Integer pTipoAnimalId) {
-		tipoAnimalId = pTipoAnimalId;
+	public void setTipo(TipoAnimal tipo) {
+		this.tipo = tipo;
 	}
-	public Integer getDonoId() {
-		return donoId;
+	public Pessoa getDono() {
+		return dono;
 	}
-	public void setDonoId(Integer pDonoId) {
-		donoId = pDonoId;
+	public void setDono(Pessoa dono) {
+		this.dono = dono;
 	}
 	public String getNome() {
 		return nome;
 	}
-	public void setNome(String pNome) {
-		nome = pNome;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public Date getNascimento() {
 		return nascimento;
 	}
-	public void setNascimento(Date pNascimento) {
-		nascimento = pNascimento;
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
+	}
+	public Set<Alergia> getAlergia() {
+		return alergia;
+	}
+	public void setAlergia(Set<Alergia> alergia) {
+		this.alergia = alergia;
+	}
+	public Set<VacinaAnimal> getVacinasAnimal() {
+		return vacinasAnimal;
+	}
+	public void setVacinasAnimal(Set<VacinaAnimal> vacinasAnimal) {
+		this.vacinasAnimal = vacinasAnimal;
 	}
 	
 	@Override
