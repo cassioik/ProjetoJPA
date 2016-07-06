@@ -1,10 +1,13 @@
 package com.clinicaveterinaria.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +21,9 @@ public class Alergia {
 	private String nome;
 	@Column(nullable=false, length=200)
 	private String descricao;
+	
+	@ManyToMany(mappedBy="alergia")
+	private List<Animal> animais;
 	
 	public Integer getId() {
 		return id;
@@ -36,6 +42,12 @@ public class Alergia {
 	}
 	public void setDescricao(String pDescricao) {
 		descricao = pDescricao;
+	}
+	public List<Animal> getAnimais() {
+		return animais;
+	}
+	public void setAnimais(List<Animal> pAnimais) {
+		animais = pAnimais;
 	}
 	
 	@Override

@@ -17,6 +17,10 @@ public class VacinaAnimal {
 	@ManyToOne
 	@JoinColumn(name = "vacina_id", insertable = false, updatable = false)
 	private Vacina vacina;
+	
+	@ManyToOne
+	@JoinColumn(name = "animal_id", insertable = false, updatable = false)
+	private Animal animal;
 
 	public VacinaAnimalID getId() {
 		return id;
@@ -40,6 +44,14 @@ public class VacinaAnimal {
 
 	public void setVacina(Vacina vacina) {
 		this.vacina = vacina;
+	}
+
+	public Animal getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(Animal pAnimal) {
+		animal = pAnimal;
 	}
 
 	@Override

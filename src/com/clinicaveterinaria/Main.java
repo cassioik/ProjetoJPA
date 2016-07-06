@@ -20,26 +20,23 @@ public class Main {
 			factory = Persistence.createEntityManagerFactory("clinica_pu");
 			em = factory.createEntityManager();
 			
-//			Pessoa pessoa = null;
-			Animal animal = null;
+			Pessoa pessoa = null;
+//			Animal animal = null;
 //			TipoAnimal tipoAnimal = null;
 //			Vacina vacina = null;
 //			Alergia alergia = null;
 			
 			em.getTransaction().begin();
-//			pessoa = em.find(Pessoa.class, 0);
+			pessoa = em.find(Pessoa.class, 0);
 //			pessoa.setNome("Cássio");
-			animal = em.find(Animal.class, 0);
+//			animal = em.find(Animal.class, 0);
 //			tipoAnimal = em.find(TipoAnimal.class, 1);
 //			vacina = em.find(Vacina.class, 1);
-//			alergia = em.find(Alergia.class, 1);
+//			alergia = em.find(Alergia.class, 0);
 			em.getTransaction().commit();
 			
-			System.out.println(animal.getNome());
-			
-			for (Alergia al : animal.getAlergia()){
-				System.out.println(al.getNome());
-			}
+			System.out.println(pessoa.getNome());
+			System.out.println(pessoa.getEndereco().getRua() +", "+ pessoa.getEndereco().getNumero());
 			
 		} catch (Exception e) {
 			if(em!=null && em.getTransaction().isActive())

@@ -39,7 +39,7 @@ public class Animal {
 	@OneToMany(mappedBy="id.idAnimal", fetch=FetchType.EAGER)
 	private Set<VacinaAnimal> vacinasAnimal;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable (
 		name="alergiaanimal", 
 		joinColumns={@JoinColumn(name="animal_id", referencedColumnName="animal_id")},

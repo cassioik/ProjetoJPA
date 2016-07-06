@@ -1,29 +1,28 @@
 package com.clinicaveterinaria.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "VACINA")
-public class Vacina {
+@Table(name = "ENDERECO")
+public class Endereco {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="vacina_id", updatable=false)
+	@Column(name="endereco_id", updatable=false)
 	private Integer id;
-	@Column(nullable=false, length=50)
-	private String nome;
-	@Column(nullable=true, length=100)
-	private String descricao;
+	private String Rua;
+	private Integer Cep;
+	private Integer Numero;
 	
-	@OneToMany(mappedBy="id.idVacina")
-	private Set<VacinaAnimal> vacinasAnimal;
+	@OneToOne
+	@JoinColumn(name = "pessoa_id") 
+	private Pessoa pessoa;
 	
 	public Integer getId() {
 		return id;
@@ -31,23 +30,29 @@ public class Vacina {
 	public void setId(Integer pId) {
 		id = pId;
 	}
-	public String getNome() {
-		return nome;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
-	public void setNome(String pNome) {
-		nome = pNome;
+	public void setPessoa(Pessoa pPessoa) {
+		pessoa = pPessoa;
 	}
-	public String getDescricao() {
-		return descricao;
+	public Integer getCep() {
+		return Cep;
 	}
-	public void setDescricao(String pDescricao) {
-		descricao = pDescricao;
-	}	
-	public Set<VacinaAnimal> getVacinasAnimal() {
-		return vacinasAnimal;
+	public void setCep(Integer pCep) {
+		Cep = pCep;
 	}
-	public void setVacinasAnimal(Set<VacinaAnimal> pVacinasAnimal) {
-		vacinasAnimal = pVacinasAnimal;
+	public Integer getNumero() {
+		return Numero;
+	}
+	public void setNumero(Integer pNumero) {
+		Numero = pNumero;
+	}
+	public String getRua() {
+		return Rua;
+	}
+	public void setRua(String pRua) {
+		Rua = pRua;
 	}
 	
 	@Override
@@ -65,7 +70,7 @@ public class Vacina {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Vacina other = (Vacina) obj;
+		Endereco other = (Endereco) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -73,4 +78,5 @@ public class Vacina {
 			return false;
 		return true;
 	}
+	
 }

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -31,6 +32,9 @@ public class Pessoa {
 	
 	@OneToMany(mappedBy="dono")
 	private List<Animal> animais;
+	
+	@OneToOne(mappedBy="pessoa")
+	private Endereco endereco;
 	
 	public Integer getId() {
 		return id;
@@ -69,6 +73,13 @@ public class Pessoa {
 	public void setAnimais(List<Animal> animais) {
 		this.animais = animais;
 	}
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco pEndereco) {
+		endereco = pEndereco;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
